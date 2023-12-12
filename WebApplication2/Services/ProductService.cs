@@ -26,7 +26,7 @@ namespace WebApplication2.Services
               return new SqlConnection(_builder.ConnectionString);*/
 
 
-            return new SqlConnection(_configuration.GetConnectionString("SQLConnection")
+            return new SqlConnection(_configuration.GetConnectionString("SQLConnection"));
         }
 
         public List<Product> GetProducts()
