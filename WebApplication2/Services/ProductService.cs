@@ -4,10 +4,10 @@ namespace WebApplication2.Services
 {
     public class ProductService : IProductService
     {
-        private static string db_source = "orkadasqlserver.database.windows.net";
+       /* private static string db_source = "orkadasqlserver.database.windows.net";
         private static string db_user = "SQLAdmin";
         private static string db_password = "Learner1Password1234$$";
-        private static string db_database = "appdn";
+        private static string db_database = "appdn";*/
 
         private readonly IConfiguration _configuration;
 
