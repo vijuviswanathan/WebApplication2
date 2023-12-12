@@ -2,37 +2,44 @@
 
 namespace WebApplication2.Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private static string db_source = "orkadasqlserver.database.windows.net";
         private static string db_user = "SQLAdmin";
         private static string db_password = "Learner1Password1234$$";
         private static string db_database = "appdn";
 
+        private readonly IConfiguration _configuration;
+
+        public ProductService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         private SqlConnection GetConnection()
         {
-            var _builder = new SqlConnectionStringBuilder();
-            _builder.DataSource = db_source;
-            _builder.UserID = db_user;
-            _builder.Password = db_password;
-            _builder.InitialCatalog = db_database;
-            return new SqlConnection(_builder.ConnectionString);
+            /*  var _builder = new SqlConnectionStringBuilder();
+              _builder.DataSource = db_source;
+              _builder.UserID = db_user;
+              _builder.Password = db_password;
+              _builder.InitialCatalog = db_database;
+              return new SqlConnection(_builder.ConnectionString);*/
 
 
-
+            return new SqlConnection(_configuration.GetConnectionString("SQLConnection")
         }
 
         public List<Product> GetProducts()
         {
             SqlConnection conn = GetConnection();
-            List <Product> _product_list = new List<Product> ();
+            List<Product> _product_list = new List<Product>();
             string statement = "SELECT ProductID, ProductName, Quantity from Products";
             conn.Open();
 
-            SqlCommand cmd  = new SqlCommand (statement, conn);
-            using (SqlDataReader reader = cmd.ExecuteReader ())
+            SqlCommand cmd = new SqlCommand(statement, conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
             {
-                while (reader.Read ())
+                while (reader.Read())
                 {
                     Product product = new Product()
                     {
@@ -46,7 +53,7 @@ namespace WebApplication2.Services
 
                 }
             }
-            conn.Close ();
+            conn.Close();
             return _product_list;
         }
 

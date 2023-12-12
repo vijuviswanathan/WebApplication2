@@ -8,11 +8,19 @@ namespace WebApplication2.Pages
     {
 
         public List<Product> Products;
+
+        private readonly IProductService _productService;
+
+        public IndexModel(IProductService productService)
+        { 
+            _productService = productService;
+
+        }
         
         public void OnGet()
         {
-            ProductService productService = new ProductService();
-            Products = productService.GetProducts();
+          //  ProductService productService = new ProductService();
+            Products = _productService.GetProducts();
 
         }
     }
