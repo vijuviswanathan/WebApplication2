@@ -25,8 +25,9 @@ namespace WebApplication2.Services
               _builder.InitialCatalog = db_database;
               return new SqlConnection(_builder.ConnectionString);*/
 
+            return new SqlConnection(_configuration["SQLConnection"]);
 
-            return new SqlConnection(_configuration.GetConnectionString("SQLConnection"));
+            // return new SqlConnection(_configuration.GetConnectionString("SQLConnection"));
         }
 
         public List<Product> GetProducts()
